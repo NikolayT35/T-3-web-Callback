@@ -1,33 +1,24 @@
 package ru.netology.web;
 
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
+import com.codeborne.selenide.SelenideElement;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
-public class CallbackTest {
-    private WebDriver driver;
-
-    @BeforeAll
-    static void setUpAll() {
-        System.setProperty("webDriver.chrome.driver", "driver/Linux/chromedriver");
-    }
+import static com.codeborne.selenide.Condition.exactText;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.open;
 
 
-    @BeforeEach
-    void setUp() {
-        driver = new ChromeDriver();
-    }
+ class CallbackTest {
 
-    @BeforeEach
-    void tearDown(){
-        driver.quit();
-        driver = null;
-    }
     @Test
-    void shouldTestV1(){
-        driver.get("http://localhost:9999");
-    }
+    void shouldFillForm() {
+        open("http://localhost:9999");
+        SelenideElement form = $(".form");
+        form.$("[data-test-id=name] input").setValue("Иванов Иван");
+        form.$("[data-test-id=phone] input").setValue("+79999999999");
+        form.$("[data-test-id=agreement]").click();
+        form.$(".button").click();
+        $(".Success_successBlock__2L3Cw").shouldHave(exactText("Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время."));
 
+    }
 }
