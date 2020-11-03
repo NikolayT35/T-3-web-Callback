@@ -63,7 +63,7 @@ class CallbackTest {
         form.$("[data-test-id=phone] input").setValue("+71234567");
         form.$("[data-test-id=agreement]").click();
         form.$(".button").click();
-        $("[data-test-id=phone] .input__sub").shouldHave(exactText("Телефо указан неверно. Должно быть 11 цифр, например, +79012345678."));
+        $("[data-test-id=phone] .input__sub").shouldHave(exactText("Телефон указан неверно. Должно быть 11 цифр, например, +79012345678."));
     }
 
     @Test
