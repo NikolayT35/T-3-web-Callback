@@ -52,7 +52,7 @@ class CallbackTest {
         form.$("[data-test-id=phone] input").setValue("+79999999999");
         form.$("[data-test-id=agreement]").click();
         form.$(".button").click();
-        $(".input__sub").shouldHave(exactText("Пол обязательно для заполнения"));
+        $(".input__sub").shouldHave(exactText("Поле обязательно для заполнения"));
     }
 
     @Test
