@@ -72,6 +72,26 @@ class CallbackTest {
         form.$(".button").click();
         $("[data-test-id='phone'].input_invalid .input__sub").shouldHave(exactText("Поле обязательно для заполнения"));
     }
+
+    @Test
+    void shouldNotShowMistakeFieldName() {
+        SelenideElement form = $(".form");
+        form.$("[data-test-id=name] input").setValue("Иванов Фёдор");
+        form.$("[data-test-id=phone] input").setValue("+79999999999");
+        form.$("[data-test-id=agreement]").click();
+        form.$(".button").click();
+        $(".Success_successBlock__2L3Cw").shouldHave(exactText("Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время."));
+    }
+
+    @Test
+    void shouldShowTextMistake() {
+        SelenideElement form = $(".form");
+        form.$("[data-test-id=name] input").setValue("Ivanov Ivan");
+        form.$("[data-test-id=phone] input").setValue("+79999999999");
+        form.$("[data-test-id=agreement]").click();
+        form.$(".button").click();
+        $("[data-test-id='name'].input_invalid .input__sub").shouldHave(exactText("Имя и Фамилия указаны неверно. Допустимы только русские буквы, пробелы и дефисы."));
+    }
 }
 
 
